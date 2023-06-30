@@ -1,0 +1,26 @@
+{
+  "name": "performance-analysis-talk",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon --watch schema.graphql --watch data.json --watch server.js server.js",
+    "dev:fixed": "nodemon --watch schema.graphql --watch data.json --watch server-fixed.js server-fixed.js",
+    "smoke": "node smoke.js",
+    "load": "node load.js"
+  },
+  "author": "Jonny Green",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.18.0",
+    "graphql": "^16.7.1",
+    "mercurius": "^13.0.0",
+    "undici": "^5.22.1"
+  },
+  "devDependencies": {
+    "0x": "^5.5.0",
+    "autocannon": "^7.11.0",
+    "nodemon": "^2.0.22"
+  }
+}

@@ -1,0 +1,77 @@
+type ReleaseNotes {
+  url: String!
+  type: String!
+}
+
+type ThirdPartyNotice {
+  originalFileName: String!
+  url: String!
+  type: String!
+}
+
+type Value {
+  value: Long!
+  unit: String!
+}
+
+type Eula {
+  url: String!
+  type: String!
+  label: String!
+  message: String!
+}
+
+scalar Long
+
+type EntityModule {
+  id: String!
+  slug: String!
+  name: String!
+  description: String!
+  category: String!
+  url: String!
+  type: String!
+  downloadSize: Value!
+  installedSize: Value!
+  subModules: [EntityModule!]!
+  required: Boolean!
+  hidden: Boolean!
+  preSelected: Boolean!
+  eula: [Eula!]
+  skuFamily: String!
+}
+
+type EntityDownload {
+  url: String!
+  integrity: String!
+  type: String!
+  platform: String!
+  architecture: String!
+  downloadSize: Value!,
+  installedSize: Value!,
+  modules: [EntityModule!]!
+}
+
+type Entity {
+  version: String!
+  releaseDate: String!
+  releaseNotes: ReleaseNotes!
+  stream: String!
+  skuFamily: String!
+  recommended: Boolean!
+  deepLink: String!
+  shortRevision: String!
+  thirdPartyNotices: [ThirdPartyNotice!]!
+  downloads: [EntityDownload!]!
+}
+
+type PaginatedEntityResponse {
+  offset: Int!
+  limit: Int!
+  total: Int!
+  results: [Entity!]!
+}
+
+type Query {
+  getEntities: PaginatedEntityResponse!
+}

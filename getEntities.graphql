@@ -1,0 +1,77 @@
+query GetEntities { 
+  getEntities {
+    offset
+    limit
+    total
+    results {
+      version
+      releaseDate
+      releaseNotes {
+        url
+        type
+      }
+      stream
+      skuFamily
+      recommended
+      deepLink
+      shortRevision
+      thirdPartyNotices {
+        type
+        url
+        originalFileName
+      }
+      downloads {
+        url
+        integrity
+        type
+        platform
+        architecture
+        downloadSize {
+          ...value
+        }
+        installedSize {
+          ...value
+        }
+        modules {
+          ...module
+          subModules {
+            ...module
+            subModules {
+              ...module
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+fragment value on Value {
+  value
+  unit
+}
+
+fragment module on EntityModule {
+  id
+  slug
+  name
+  description
+  category
+  url
+  type
+  downloadSize {
+    ...value
+  }
+  installedSize {
+    ...value
+  }
+  required
+  hidden
+  preSelected
+  eula {
+    url
+    type
+    label
+    message
+  }
+}
