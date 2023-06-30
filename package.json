@@ -5,6 +5,9 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
+    "start": "node server.js",
+    "start:fixed": "node server-fixed.js",
+    "start:collector": "docker run --name jaeger -e COLLECTOR_ZIPKIN_HOST_PORT=:9411 -e COLLECTOR_OTLP_ENABLED=true -p 6831:6831/udp -p 6832:6832/udp -p 5778:5778 -p 16686:16686 -p 4317:4317 -p 4318:4318 -p 14250:14250 -p 14268:14268 -p 14269:14269 -p 9411:9411 jaegertracing/all-in-one:1.44",
     "dev": "nodemon --watch schema.graphql --watch data.json --watch server.js server.js",
     "dev:fixed": "nodemon --watch schema.graphql --watch data.json --watch server-fixed.js server-fixed.js",
     "smoke": "node smoke.js",
@@ -13,6 +16,14 @@
   "author": "Jonny Green",
   "license": "ISC",
   "dependencies": {
+    "@opentelemetry/api": "^1.4.1",
+    "@opentelemetry/context-async-hooks": "^1.14.0",
+    "@opentelemetry/resources": "^1.14.0",
+    "@opentelemetry/sdk-trace-base": "^1.14.0",
+    "@opentelemetry/exporter-trace-otlp-proto": "^0.40.0",
+    "@opentelemetry/semantic-conventions": "^1.14.0",
+    "@opentelemetry/instrumentation-graphql": "^0.34.3",
+    "@autotelic/fastify-opentelemetry": "^0.17.1",
     "fastify": "^4.18.0",
     "graphql": "^16.7.1",
     "mercurius": "^13.0.0",
@@ -21,6 +32,7 @@
   "devDependencies": {
     "0x": "^5.5.0",
     "autocannon": "^7.11.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^2.0.22",
+    "flamebearer": "^1.1.3"
   }
 }
